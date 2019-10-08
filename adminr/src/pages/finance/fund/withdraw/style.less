@@ -1,0 +1,126 @@
+.rechargeWrap {
+  .rechargeBtns {
+    button + button {
+      margin-left: 10px;
+    }
+  }
+}
+
+.balanceWrap {
+  padding: 25px 5px;
+
+  span {
+    color: #1e1e1e;
+    font-size: 17px;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  span + span {
+    margin-left: 40px;
+  }
+
+  button {
+    margin-left: 30px;
+    font-size: 15px;
+
+    span {
+      color: #1890ff;
+      font-size: 14px;
+    }
+  }
+}
+
+.tabelBtns {
+  button {
+    color: #1890ff;
+    font-size: 15px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    appearance: none;
+
+    &:hover {
+      background: none;
+    }
+  }
+
+  button + button {
+    margin-left: 10px;
+  }
+}
+
+.editBtns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.balanceAddWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    margin-right: 20px;
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+.transferTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+
+  strong {
+    font-size: 16px;
+  }
+
+  strong + strong {
+    margin-left: 20px;
+  }
+}
+
+.successModal {
+  .ant-modal-body {
+    padding: 0;
+  }
+}
+
+.successModalCont {
+  h3 {
+    padding: 10px 0 25px 0;
+    font-size: 20px;
+  }
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    color: #bcbcbc;
+    line-height: 50px;
+    border-top: 1px solid #ccc;
+    i {
+      font-style: normal;
+    }
+  }
+  > div {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 25px;
+    border-top: 1px solid #ccc;
+  }
+}
+
+.orange {
+  background: rgb(255, 144, 56);
+}
+.red {
+  background: #ff2f32;
+}

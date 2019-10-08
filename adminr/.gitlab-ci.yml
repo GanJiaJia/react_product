@@ -1,0 +1,128 @@
+before_script:
+  - which node && node --version
+  - which yarn && yarn --version
+
+stages:
+  - build
+  - deploy
+
+##测试环境流程
+##1.安装测试环境依赖包
+prepare:
+  tags:
+    - build
+  stage: build
+  only:
+    - build/ref
+  cache:
+    key: 'release_ref'
+    paths:
+      - node_modules/
+  script:
+    - pwd
+    - echo "prepare env"
+    - yarn
+
+##2.构建测试环境及生产环境安装包
+build-package:
+  tags:
+    - build
+  stage: build
+  only:
+    - dev
+    - dev-game
+    - int
+    - release
+    - uat
+    - master
+  cache:
+    key: 'release_ref'
+    policy: pull
+    paths:
+      - node_modules/
+  artifacts:
+    name: '$CI_JOB_NAME'
+    when: on_success
+    paths:
+      - dist/
+    expire_in: 20 min
+  script:
+    - pwd
+    - echo "prepare to build"
+    - umi build
+
+##3.发布dev环境
+deploy-dev:
+  tags:
+    - deploy
+  stage: deploy
+  only:
+    - dev
+  dependencies:
+    - build-package
+  script:
+    # 测试环境 http://intra.beibotop.com/
+    - scp -r -P 1666 ./dist/* root@203.60.1.45:/www/fund-mng/
+
+##4.发布dev-game环境
+deploy-dev-game:
+  tags:
+    - deploy
+  stage: deploy
+  only:
+    - dev-game
+  dependencies:
+    - build-package
+  script:
+    # 第二套开发环境（运维），用于业务需求开发 http://www.aalgds.com
+    - scp -r -P 1666 -i /root/.ssh/id_rsa_119 ./dist/* root@203.60.1.45:/www/fund-mng/
+
+##5.发布int环境
+deploy-int:
+  tags:
+    - deploy
+  stage: deploy
+  only:
+    - int
+    - release
+  dependencies:
+    - build-package
+  script:
+    # 第一套开发环境（leo），用于业务需求开发，后台管理系统域名：http://intra.bbkoya.com，对应前台用户端 https://www.bbsama.com/
+    - scp -r -P 1666 -i /root/.ssh/id_rsa_119 ./dist/adminReact.zip webDeploy@119.9.91.44:/www/bbsama/
+
+##6.发布uat环境
+deploy-uat:
+  tags:
+    - deploy
+  stage: deploy
+  only:
+    - uat
+  dependencies:
+    - build-package
+  script:
+    # 预发布生产环境 bbuatback
+    - scp -r -P 1666 -i /root/.ssh/id_rsa_119 ./dist/adminReact.zip webDeploy@119.9.91.44:/www/bbuat/
+
+##7.发布生产环境
+deploy-prd:
+  tags:
+    - deploy
+  stage: deploy
+  only:
+    - master
+  dependencies:
+    - build-package
+  script:
+    - scp -r -P 1666 -i /root/.ssh/id_rsa_119 ./dist/adminReact.zip webDeploy@119.9.91.44:/www/
+#  dev：
+#  a.205内网，对应后端内网开发环境
+#  b.第一套开发环境（leo），用于业务需求开发，后台管理系统域名：http://www.bbkoya.com，对应前台用户端 https://www.bbsama.com/
+#  c.第二套开发环境（运维），用途待定，域名待定
+#  d.第三套开发环境（运维），游戏开发，域名待定，待新增
+#
+#  int,release:测试环境 aalgds
+#
+#  uat:  预发布生产环境 bbuatback
+#
+#  master: 生产

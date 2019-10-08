@@ -1,0 +1,20 @@
+.message {
+  height: 200px;
+  line-height: 200px;
+}
+.editBtns {
+  display: flex;
+  justify-content: flex-end;
+  > div {
+    width: 160px;
+  }
+}
+.formItem {
+  display: inline-block;
+  width: 150px;
+  input {
+    & + span {
+      line-height: unset !important;
+    }
+  }
+}

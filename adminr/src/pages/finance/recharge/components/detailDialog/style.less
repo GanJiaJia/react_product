@@ -1,0 +1,33 @@
+.detailTable {
+  margin-top: 20px;
+  :global {
+    .ant-table-thead > tr > th {
+      text-align: center;
+    }
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters {
+      padding: 8px !important;
+    }
+    .ant-table-row > td {
+      padding: 8px 2px !important;
+      text-align: center;
+      vertical-align: middle;
+      word-break: break-word;
+    }
+  }
+}
+
+.imgViewContianer {
+  margin-top: 10px;
+  overflow: hidden;
+  & > li {
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-left: 5px;
+    overflow: hidden;
+    list-style: none;
+    border: 2px solid #d9d9d9;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

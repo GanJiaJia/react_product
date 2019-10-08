@@ -1,0 +1,46 @@
+.message {
+  height: 200px;
+  line-height: 200px;
+}
+.editBtns {
+  display: flex;
+  justify-content: flex-end;
+}
+.formItem {
+  display: inline-block;
+  width: 150px;
+  input {
+    & + span {
+      line-height: unset !important;
+    }
+  }
+}
+
+.tab > div {
+  &:nth-child(2) {
+    margin-top: 30px;
+    margin-left: -70px;
+  }
+}
+
+.syncBtn {
+  position: relative;
+  top: -30px;
+  right: -380px;
+}
+
+.nickName {
+  position: relative;
+  display: inline-block;
+  height: 30px;
+  margin-right: 10px;
+  padding: 0 10px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  .closeIcon {
+    position: absolute;
+    top: -5px;
+    color: gray;
+  }
+}
